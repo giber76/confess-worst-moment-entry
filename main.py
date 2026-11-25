@@ -26,6 +26,8 @@ def write_entry() -> Path:
         raise SystemExit("confession is empty")
     if len(text) > MAX_CHARS:
         raise SystemExit(f"confession is {len(text)} chars, over the 200 limit")
+    if "\n" in text or "\r" in text:
+        raise SystemExit("confession must be a single line")
     out = Path("/output/entry.txt")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(text, encoding="utf-8")
